@@ -10,7 +10,7 @@ mysql:
 before_script:
  - mysql -e 'create database drupal;'
  - pyrus channel-discover pear.drush.org
- - pyrus install drush/drush
+ - pyrus install drush/drush-devel
  - phpenv rehash
  - drush dl drupal-8 --no-cache
  - cd drupal-*
