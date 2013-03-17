@@ -12,13 +12,16 @@ before_script:
  - pyrus channel-discover pear.drush.org
  - pyrus install drush/drush
  - phpenv rehash
- - drush dl --yes drupal
+ - drush dl drupal --yes
  - cd drupal-*
  - drush si standard --db-url=mysql://root:@localhost/drupal --yes
- - drush en --yes simpletest
+ - drush en simpletest --yes
+ - drush dl moopapi --dev
+ - drush en moopapi --yes
+ - wget http://drupalcode.org/project/drupal.git/blob_plain/refs/heads/7.x:/modules/simpletest/simpletest.test
  - drush cc all
  - drush runserver --server=builtin 8080 &
  - sleep 4
- - drush vset --yes simpletest_verbose FALSE
+ - drush vset simpletest_verbose FALSE --yes
 
-script: drush test-run Syslog --xml --uri=http://127.0.0.1:8080
+script: drush test-run --xml --file=simpletest.test --uri=http://127.0.0.1:8080
