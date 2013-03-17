@@ -12,12 +12,12 @@ before_script:
  - pyrus channel-discover pear.drush.org
  - pyrus install drush/drush
  - phpenv rehash
- - drush dl drupal-8
+ - drush dl drupal-8 --no-cache
  - cd drupal-*
  - drush si standard --db-url=mysql://root:@localhost/drupal --yes
  - drush en simpletest --yes
- #- drush dl moopapi --dev
- #- drush en moopapi --yes
+ - drush dl moopapi --dev --no-cache
+ - drush en moopapi --yes
  - wget http://drupalcode.org/project/drupal.git/blob_plain/refs/heads/7.x:/modules/simpletest/simpletest.test
  - drush cc all
  - drush runserver --server=builtin 8080 &
