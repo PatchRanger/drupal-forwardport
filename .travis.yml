@@ -1,6 +1,6 @@
 language: php
 php:
-  - 5.4
+  - 5.4.12
 
 mysql:
   database: drupal
@@ -11,9 +11,8 @@ before_script:
  - mysql -e 'create database drupal;'
  - pyrus channel-discover pear.drush.org
  - pyrus install drush/drush-devel
-# No need in rehash, since it is done on php version setting stage.
-# - phpenv rehash
-# --no-cache is must-have due to http://drupal.org/node/1630220
+ - phpenv rehash
+ # --no-cache is must-have due to http://drupal.org/node/1630220
  - drush dl drupal-8 --no-cache
  - cd drupal-*
  - drush si standard --db-url=mysql://root:@localhost/drupal --yes
@@ -26,6 +25,8 @@ before_script:
  - sleep 4
  - drush vset simpletest_verbose FALSE --yes
  - ls -la
+ # DEBUG
+ - ls ~/.phpenv/versions -la
 
-script: php ./core/scripts/run-tests.sh --url 'http://127.0.0.1:8080' --file simpletest.test
+script: php ./core/scripts/run-tests.sh --php ~/.phpenv/versions/5.4.12/bin/php --url 'http://127.0.0.1:8080' --file simpletest.test
 #drush test-run --xml --file=simpletest.test --uri=http://127.0.0.1:8080
