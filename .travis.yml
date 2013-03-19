@@ -11,7 +11,9 @@ before_script:
  - mysql -e 'create database drupal;'
  - pyrus channel-discover pear.drush.org
  - pyrus install drush/drush-devel
- - phpenv rehash
+# No need in rehash, since it is done on php version setting stage.
+# - phpenv rehash
+# --no-cache is must-have due to http://drupal.org/node/1630220
  - drush dl drupal-8 --no-cache
  - cd drupal-*
  - drush si standard --db-url=mysql://root:@localhost/drupal --yes
