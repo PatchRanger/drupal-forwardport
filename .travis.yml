@@ -25,8 +25,6 @@ before_script:
  - sleep 4
  - drush vset simpletest_verbose FALSE --yes
  - ls -la
- # DEBUG
- - ls ~/.phpenv/versions -la
 
-script: php ./core/scripts/run-tests.sh --php ~/.phpenv/versions/5.4.12/bin/php --url 'http://127.0.0.1:8080' --file simpletest.test
+script: php ./core/scripts/run-tests.sh --php ~/.phpenv/versions/5.4.12/bin/php --url 'http://127.0.0.1:8080' --file simpletest.test --xml simpletest.xml
 #drush test-run --xml --file=simpletest.test --uri=http://127.0.0.1:8080
