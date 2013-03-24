@@ -2,7 +2,7 @@ diff --git profiles/minimal/minimal.info profiles/minimal/minimal.info
 index 6ec8f74..3e60bca 100644
 --- profiles/minimal/minimal.info
 +++ profiles/minimal/minimal.info
-@@ -4,3 +4,5 @@ version = VERSION
+@@ -3,3 +3,5 @@ version = VERSION
  core = 7.x
  dependencies[] = block
  dependencies[] = dblog
@@ -12,7 +12,7 @@ diff --git profiles/standard/standard.info profiles/standard/standard.info
 index 3a65cfb..786da0a 100644
 --- profiles/standard/standard.info
 +++ profiles/standard/standard.info
-@@ -23,3 +23,5 @@ dependencies[] = overlay
+@@ -22,3 +22,5 @@ dependencies[] = overlay
  dependencies[] = field_ui
  dependencies[] = file
  dependencies[] = rdf
