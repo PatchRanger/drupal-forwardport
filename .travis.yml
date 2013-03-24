@@ -25,7 +25,7 @@ before_script:
  - mkdir core
  - wget --output-document=core/simpletest.test http://drupalcode.org/project/simpletest.git/blob_plain/refs/heads/6.x-2.x:/simpletest.test
  - drush php-eval "module_load_include('test', 'moopapi', 'core/simpletest');";
- # DEBUG
+ # To make test file discoverable.
  - cd core
  - ls -la
  # Up to Drupal root level.
@@ -35,5 +35,5 @@ before_script:
  - sleep 4
  - drush vset simpletest_verbose FALSE --yes
 
-script: php ./scripts/run-tests.sh --php ~/.phpenv/versions/5.4.12/bin/php --url 'http://127.0.0.1:8080' --xml simpletest.xml --file sites/all/modules/moopapi/core/simpletest.test
+script: php scripts/run-tests.sh --php ~/.phpenv/versions/5.4.12/bin/php --url 'http://127.0.0.1:8080' --xml simpletest.xml --file sites/all/modules/moopapi/core/simpletest.test
 #drush test-run --xml --file=sites/all/modules/moopapi/core/simpletest.test --uri=http://127.0.0.1:8080
