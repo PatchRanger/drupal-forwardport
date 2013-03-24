@@ -20,11 +20,12 @@ before_script:
  - cp -R ../drupal7-moopapi sites/all/modules/moopapi
  - drush si standard --db-url=mysql://root:@localhost/drupal --yes
  - drush en simpletest --yes
- - drush en moopapi --yes
  - cd sites/all/modules/moopapi
  - mkdir core
  - cd core
  - wget --output-document=simpletest.test http://drupalcode.org/project/simpletest.git/blob_plain/refs/heads/6.x-2.x:/simpletest.test
+ - drush en moopapi --yes
+ # ?Do we need it?
  - drush php-eval "module_load_include('test', 'moopapi', 'core/simpletest');";
  # To make test file discoverable.
  - ls -la
