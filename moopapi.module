@@ -5,9 +5,10 @@
  */
 function moopapi_boot() {
   /**
-   * This empty hook is absolutely necessary to force drupal to load this module early on.
+   * This hook is absolutely necessary to force drupal to load this module early on.
    * All contrib oop modules will fail to execute properly if we fail to load this module before them.
    */
+  module_invoke('moopapi', 'register', 'file', 'FileD6Adapter');
 }
 
 /**
