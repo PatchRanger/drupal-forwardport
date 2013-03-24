@@ -1,6 +1,6 @@
 <?php
 
-class FileD6Adapter extends ApplicationAdapter /*implements IBotcha*/ {
+class FileD6Adapter extends ApplicationAdapter /*implements IFile*/ {
 
   /**
    * Adapter for file_directory_path().
