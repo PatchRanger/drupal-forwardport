@@ -32,5 +32,5 @@ before_script:
  # Up to Drupal root level.
  - cd ../../../../
 
-script: drush test-run --xml --file=sites/all/modules/moopapi/core/simpletest.test --uri=http://127.0.0.1:8080
-#php ./scripts/run-tests.sh --php ~/.phpenv/versions/5.4.12/bin/php --url 'http://127.0.0.1:8080' --xml simpletest.xml --file sites/all/modules/moopapi/core/simpletest.test
+script: php ./scripts/run-tests.sh --php ~/.phpenv/versions/5.4.12/bin/php --url 'http://127.0.0.1:8080' --xml simpletest.xml --file sites/all/modules/moopapi/core/simpletest.test
+#drush test-run --xml --file=sites/all/modules/moopapi/core/simpletest.test --uri=http://127.0.0.1:8080
