@@ -1,33 +1,20 @@
-From 03f7cfc3500b3b4d41016d0dd95718905d5fb9ed Mon Sep 17 00:00:00 2001
-From: Staratel <Staratel@1209848.no-reply.drupal.org>
-Date: Sun, 24 Mar 2013 19:21:19 +0700
-Subject: [PATCH] Added Moopapi to install profiles.
-
----
- profiles/minimal/minimal.info   |    2 ++
- profiles/standard/standard.info |    2 ++
- 2 files changed, 4 insertions(+)
-
-diff --git a/profiles/minimal/minimal.info b/profiles/minimal/minimal.info
+diff --git profiles/minimal/minimal.info profiles/minimal/minimal.info
 index 6ec8f74..3e60bca 100644
---- a/profiles/minimal/minimal.info
-+++ b/profiles/minimal/minimal.info
+--- profiles/minimal/minimal.info
++++ profiles/minimal/minimal.info
 @@ -4,3 +4,5 @@ version = VERSION
  core = 7.x
  dependencies[] = block
  dependencies[] = dblog
 +; Necessary for Forwardport doctrine (see http://drupal.org/node/1932290 )
 +dependencies[] = moopapi
-diff --git a/profiles/standard/standard.info b/profiles/standard/standard.info
+diff --git profiles/standard/standard.info profiles/standard/standard.info
 index 3a65cfb..786da0a 100644
---- a/profiles/standard/standard.info
-+++ b/profiles/standard/standard.info
+--- profiles/standard/standard.info
++++ profiles/standard/standard.info
 @@ -23,3 +23,5 @@ dependencies[] = overlay
  dependencies[] = field_ui
  dependencies[] = file
  dependencies[] = rdf
 +; Necessary for Forwardport doctrine (see http://drupal.org/node/1932290 )
 +dependencies[] = moopapi
--- 
-1.7.9.5
-
