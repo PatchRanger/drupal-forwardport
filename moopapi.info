@@ -5,7 +5,6 @@ core = 7.x
 
 ;files[] = moopapi.install
 ;files[] = moopapi.module
-;files[] = component/moopapi.component.inc
-;files[] = component/decorator/adapter/moopapi.adapter.inc
-;files[] = component/decorator/logger/moopapi.logger.inc
-files[] = core/simpletest.test
+files[] = component/moopapi.component.inc
+files[] = component/decorator/adapter/moopapi.adapter.inc
+files[] = component/decorator/logger/moopapi.logger.inc
