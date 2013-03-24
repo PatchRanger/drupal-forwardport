@@ -21,13 +21,16 @@ before_script:
  - drush si standard --db-url=mysql://root:@localhost/drupal --yes
  - drush en simpletest --yes
  - drush en moopapi --yes
- - wget --output-document=core/modules/simpletest/simpletest.test http://drupalcode.org/project/drupal.git/blob_plain/refs/heads/7.x:/modules/simpletest/simpletest.test
- - ls -la
- - drush php-eval "module_load_include('test', 'simpletest');";
+ - cd sites/all/modules/moopapi
+ - mkdir core
+ - wget --output-document=core/simpletest.test http://drupalcode.org/project/simpletest.git/blob_plain/refs/heads/6.x-2.x:/simpletest.test
+ - drush php-eval "module_load_include('test', 'moopapi', 'core/simpletest');";
  - drush cc all
  - drush runserver --server=builtin 8080 &
  - sleep 4
  - drush vset simpletest_verbose FALSE --yes
+ # Up to Drupal root level.
+ - cd ../../../../
 
-script: php ./core/scripts/run-tests.sh --php ~/.phpenv/versions/5.4.12/bin/php --url 'http://127.0.0.1:8080' --xml simpletest.xml --file core/modules/simpletest/simpletest.test
-#drush test-run --xml --file=simpletest.test --uri=http://127.0.0.1:8080
+script: drush test-run --xml --file=sites/all/modules/moopapi/core/simpletest.test --uri=http://127.0.0.1:8080
+#php ./scripts/run-tests.sh --php ~/.phpenv/versions/5.4.12/bin/php --url 'http://127.0.0.1:8080' --xml simpletest.xml --file sites/all/modules/moopapi/core/simpletest.test
