@@ -17,6 +17,8 @@ before_script:
  # --no-cache is must-have due to http://drupal.org/node/1630220
  - drush dl drupal-7 --no-cache
  - cd drupal-*
+ # This patch is necessary for Simpletest-tests success.
+ - patch -p1 < add_moopapi_to_install_profiles.patch
  - cp -R ../drupal7-moopapi sites/all/modules/moopapi
  - drush si standard --db-url=mysql://root:@localhost/drupal --yes
  # Replace tests with D6 tests.
