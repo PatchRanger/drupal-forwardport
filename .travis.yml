@@ -15,7 +15,7 @@ before_script:
  - cd ..
  - ls -la
  # --no-cache is must-have due to http://drupal.org/node/1630220
- - drush dl drupal-7 --no-cache
+ - drush dl drupal-7 --dev --no-cache
  - cd drupal-*
  # This patch is necessary for Simpletest-tests success.
  - git apply -p1 ../drupal7-moopapi/add_moopapi_to_install_profiles.patch
