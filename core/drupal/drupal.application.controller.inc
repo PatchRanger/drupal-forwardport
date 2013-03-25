@@ -3,9 +3,11 @@
 class Drupal extends Application /*implements IFile*/ {
 
   /**
+   * @todo Remove it, since it doesn't work when it is needed.
+   *
    * Bootstrap Drupal and run a single test.
    * We had to reimplement it to make magic work.
-   */
+   *\/
   function required_modules() {
     $files = drupal_system_listing('/^' . DRUPAL_PHP_FUNCTION_PATTERN . '\.info$/', 'modules', 'name', 0);
     $required = array();
@@ -19,4 +21,6 @@ class Drupal extends Application /*implements IFile*/ {
     }
     return $required;
   }
+   *
+   */
 }
