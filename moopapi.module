@@ -68,7 +68,7 @@ function moopapi_create_wrapper($app, $method, $class = NULL) {
   $ref_method = new ReflectionMethod($class, $method);
   $parameters = $ref_method->getParameters();
   $args = moopapi_create_args($parameters);
-  $function = "
+  $function = <<<END
 function {$app}_{$method}({$args}) {
   // To pass additional params that are not declared.
   \$full_args = func_get_args();
@@ -83,7 +83,8 @@ function {$app}_{$method}({$args}) {
   }
   \$application = moopapi_object('{$app}');
   return call_user_func_array(array(\$application, '{$method}'), \$full_args);
-}";
+}
+END;
   // This is what makes the magic possible create function in runtime that calls
   // our objects.
   eval($function);
@@ -103,7 +104,12 @@ function moopapi_create_args($parameters, $clean = FALSE) {
     if (!$clean) {
       $prefix = ($parameter->isPassedByReference()) ? '&' : '';
     }
-    $args[$i] = "{$prefix}\$var{$i}";
+    $name = $parameter->getName();
+    $arg_definition = "{$prefix}\$$name";
+    if ($parameter->isOptional()) {
+      $arg_definition .= ('=' . $parameter->getDefaultValue());
+    }
+    $args[$i] = $arg_definition;
   }
   $args = implode(', ', $args);
   return $args;
