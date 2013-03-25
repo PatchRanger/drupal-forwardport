@@ -46,19 +46,14 @@ function moopapi_create_wrapper($app, $method, $class = NULL) {
     moopapi_object($app)->$method();
     return ;
   }
-  /* We avoid it because of Simpletest where we had to redeclare existing function.
-   * @see Drupal::required_modules()
-   * @see drupal_required_modules()
   elseif (function_exists($app . '_' . $method)) {
     /**
      * This could mean that developer chose to create function on his own, so we respect his wishes and skip re-implementing it
      * If in this step function does not exist it means that it was not created by the developer or previously by us.
      * lets create it.
-     *\/
+     */
     return ;  // do not create it again
   }
-   *
-   */
 
   /**
    * To enable passing proper parameters (and parameters by reference)
