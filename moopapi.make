@@ -9,4 +9,4 @@ core = 7.x
 ; drush make uses API version `2`.
 api = 2
 ; Patching core.
-projects[drupal][patch][] = "file://./add_moopapi_to_install_profiles.patch"
+projects[drupal][patch][] = "http://raw.github.com/Staratel/drupal7-moopapi/master/add_moopapi_to_install_profiles.patch"
