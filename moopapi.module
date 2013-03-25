@@ -105,9 +105,11 @@ function moopapi_create_args($parameters, $clean = FALSE) {
       $prefix = ($parameter->isPassedByReference()) ? '&' : '';
     }
     $name = $parameter->getName();
-    $arg_definition = "{$prefix}\$$name";
+    $arg_definition = "{$prefix}\${$name}";
     if ($parameter->isOptional()) {
-      $arg_definition .= "={$parameter->getDefaultValue()}";
+      $default_value = $parameter->getDefaultValue();
+      $default_value = ($default_value) ? $default_value : 'NULL';
+      $arg_definition .= "={$default_value}";
     }
     $args[$i] = $arg_definition;
   }
