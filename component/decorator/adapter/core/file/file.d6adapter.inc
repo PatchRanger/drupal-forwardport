@@ -15,6 +15,8 @@ class FileD6Adapter extends ApplicationAdapter /*implements IFile*/ {
    * @see http://drupal.org/update/modules/6/7#file_prepare_directory
    */
   public function check_directory(&$directory, $mode = 0, $form_item = NULL) {
+    // @todo DEBUG: Why is it necessary to distort parameter?
+    $mode = ($mode) ? $mode : FILE_CREATE_DIRECTORY;
     return file_prepare_directory($directory, $mode);
   }
 }
