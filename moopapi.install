@@ -15,4 +15,7 @@ function moopapi_enable() {
     ->execute();
   // @todo Refactor it.
   variable_set('file_decorators', serialize(array('D6Adapter')));
+  // Turning on the magic.
+  moopapi_boot();
+  moopapi_init();
 }
