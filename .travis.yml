@@ -28,6 +28,8 @@ before_script:
  - cp -R ../drupal7-moopapi sites/all/modules/moopapi
  - drush si standard --db-url=mysql://root:@localhost/drupal --yes
  - drush make sites/all/modules/moopapi/moopapi.make . --no-core
+ # DEBUG: was patch applied?
+ - vi profiles/standard/standard.info
  # Replace tests with D6 tests.
  - rm modules/simpletest/simpletest.test
  - wget --output-document=modules/simpletest/simpletest.test http://drupalcode.org/project/simpletest.git/blob_plain/refs/heads/6.x-2.x:/simpletest.test
