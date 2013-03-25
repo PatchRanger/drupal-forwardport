@@ -13,4 +13,6 @@ function moopapi_enable() {
     ->condition('type', 'module')
     ->condition('name', 'moopapi')
     ->execute();
+  // @todo Refactor it.
+  variable_set('file_decorators', serialize(array('D6Adapter')));
 }
