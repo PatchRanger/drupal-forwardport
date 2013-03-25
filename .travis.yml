@@ -15,10 +15,26 @@ before_script:
  - cd ..
  - ls -la
  # --no-cache is must-have due to http://drupal.org/node/1630220
- - drush dl drupal-7 --no-cache
+ - drush dl drupal-7 --dev --no-cache
  - cd drupal-*
+ # This patch is necessary for Simpletest-tests success.
+ #- cp ../drupal7-moopapi/add_moopapi_to_install_profiles.patch add_moopapi_to_install_profiles.patch
+ # @todo Patching doesn't work - so replace files with patched.
+ #- git apply -p0 --directory=. --verbose add_moopapi_to_install_profiles.patch
+ #- git apply -p1 --directory=. --verbose add_moopapi_to_install_profiles.patch
+ #- patch -p0 -d . < add_moopapi_to_install_profiles.patch --verbose
+ #- patch -p1 -d . < add_moopapi_to_install_profiles.patch --verbose
+ # DEBUG
+ #- vi profiles/standard/standard.info.rej
+ - rm profiles/standard/standard.info
+ - cp ../drupal7-moopapi/patch/standard.info profiles/standard/standard.info
+ - rm profiles/minimal/minimal.info
+ - cp ../drupal7-moopapi/patch/minimal.info profiles/minimal/minimal.info
  - cp -R ../drupal7-moopapi sites/all/modules/moopapi
  - drush si standard --db-url=mysql://root:@localhost/drupal --yes
+ #- drush make sites/all/modules/moopapi/moopapi.make .
+ # DEBUG: was patch applied?
+ #- vi profiles/standard/standard.info
  # Replace tests with D6 tests.
  - rm modules/simpletest/simpletest.test
  - wget --output-document=modules/simpletest/simpletest.test http://drupalcode.org/project/simpletest.git/blob_plain/refs/heads/6.x-2.x:/simpletest.test

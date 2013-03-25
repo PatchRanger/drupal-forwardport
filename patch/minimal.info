@@ -1,0 +1,8 @@
+name = Minimal
+description = Start with only a few modules enabled.
+version = VERSION
+core = 7.x
+dependencies[] = block
+dependencies[] = dblog
+; Necessary for Forwardport doctrine (see http://drupal.org/node/1932290 )
+dependencies[] = moopapi
