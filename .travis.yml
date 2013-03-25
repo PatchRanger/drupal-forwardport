@@ -27,7 +27,7 @@ before_script:
  #- vi profiles/standard/standard.info.rej
  - cp -R ../drupal7-moopapi sites/all/modules/moopapi
  - drush si standard --db-url=mysql://root:@localhost/drupal --yes
- - drush make sites/all/modules/moopapi/moopapi.make . --no-core
+ - drush make sites/all/modules/moopapi/moopapi.make .
  # DEBUG: was patch applied?
  - vi profiles/standard/standard.info
  # Replace tests with D6 tests.
