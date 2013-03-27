@@ -7,9 +7,11 @@ function moopapi_boot() {
   /**
    * This hook is absolutely necessary to force drupal to load this module early on.
    * All contrib oop modules will fail to execute properly if we fail to load this module before them.
+   *
+   * @todo Refactor it.
    */
-  module_invoke('moopapi', 'register', 'file', 'FileD6Adapter');
   module_invoke('moopapi', 'register', 'drupal', 'DrupalD6Adapter');
+  module_invoke('moopapi', 'register', 'file', 'FileD6Adapter');
 }
 
 /**
@@ -161,4 +163,33 @@ function moopapi_get_major_version() {
     $moopapi_major_version = (defined('VERSION')) ? current(explode('.', VERSION)) : '6';
   }
   return $moopapi_major_version;
+}
+
+/**
+ * Make SimpleTestMailCaptureTestCase passed.
+ *
+ * @param array $message
+ */
+function moopapi_mail_alter(&$message) {
+  if ($message['module'] == 'simpletest') {
+    // Replace testing mail system with ours to override formatting, which is redundant.
+    variable_set('mail_system', array('default-system' => 'MoopapiTestingMailSystem'));
+    if (!empty($message['params']) && is_array($message['params'])) {
+      // Use params as default values.
+      $params = array('id', 'headers', 'subject', 'body');
+      foreach ($params as $param) {
+        if (isset($message['params'][$param])) {
+          $message[$param] = $message['params'][$param];
+        }
+      }
+    }
+  }
+}
+
+class MoopapiTestingMailSystem extends TestingMailSystem {
+
+  // We are overriding this behavior, because format makes Simpletest failed.
+  public function format(array $message) {
+    return $message;
+  }
 }
