@@ -193,3 +193,19 @@ class MoopapiTestingMailSystem extends TestingMailSystem {
     return $message;
   }
 }
+
+/**
+ * Make SimpleTestFunctionalTest::testInternalBrowser() passed.
+ *
+ * @param array $page
+ */
+function moopapi_page_alter(&$page) {
+  if (end(drupal_get_destination()) == 'node') {
+    $page['#post_render'] = array('moopapi_alter_title');
+  }
+}
+
+function moopapi_alter_title($content, $element) {
+  $content = preg_replace('#<title>(.*)</title>#', '<title>' . variable_get('site_name', 'Drupal') . '</title>', $content);
+  return $content;
+}
