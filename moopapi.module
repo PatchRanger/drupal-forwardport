@@ -200,7 +200,7 @@ class MoopapiTestingMailSystem extends TestingMailSystem {
  * @param array $page
  */
 function moopapi_page_alter(&$page) {
-  if (end(drupal_get_destination()) == 'node') {
+  if (request_path() == 'node') {
     $page['#post_render'] = array('moopapi_alter_title');
   }
 }
