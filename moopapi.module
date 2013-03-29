@@ -195,7 +195,7 @@ class MoopapiTestingMailSystem extends TestingMailSystem {
 }
 
 /**
- * Make SimpleTestFunctionalTest::testInternalBrowser() passed.
+ * Make SimpleTestFunctionalTest::testInternalBrowser() assertTitle() passed.
  *
  * @param array $page
  */
@@ -208,4 +208,19 @@ function moopapi_page_alter(&$page) {
 function moopapi_alter_title($content, $element) {
   $content = preg_replace('#<title>(.*)</title>#', '<title>' . variable_get('site_name', 'Drupal') . '</title>', $content);
   return $content;
+}
+
+/**
+ * Make SimpleTestFunctionalTest::testWebTestRunner() passed.
+ *
+ * @param string $path
+ * @param string $original_path
+ * @param type $path_language
+ */
+function moopapi_url_inbound_alter(&$path, $original_path, $path_language) {
+  switch ($path) {
+    case 'admin/build/testing':
+      $path = 'admin/config/development/testing';
+      break;
+  }
 }
