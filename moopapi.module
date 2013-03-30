@@ -200,13 +200,46 @@ class MoopapiTestingMailSystem extends TestingMailSystem {
  * @param array $page
  */
 function moopapi_page_alter(&$page) {
-  if (request_path() == 'node') {
+  $path = request_path();
+  if ($path == 'node') {
     $page['#post_render'] = array('moopapi_alter_title');
+  }
+  elseif (preg_match('#admin/config/development/testing/results/(\d{1})#', $path)) {
+    $page['#post_render'] = array('moopapi_alter_dom');
   }
 }
 
 function moopapi_alter_title($content, $element) {
   $content = preg_replace('#<title>(.*)</title>#', '<title>' . variable_get('site_name', 'Drupal') . '</title>', $content);
+  return $content;
+}
+
+function moopapi_alter_dom($content, $element) {
+  $dom = new DOMDocument();
+  $dom->loadHTML($content);
+  $simplexml = simplexml_import_dom($dom);
+  $fieldsets = $simplexml->xpath('//fieldset');
+  foreach ($fieldsets as $fieldset) {
+    if (trim(html_entity_decode(strip_tags($fieldset->legend->asXML()))) == 'SimpleTest functionality') {
+      // We've found the fieldset we looked for.
+      break;
+    }
+  }
+  // Modify fieldset as we need.
+  $fieldset_clone = clone $fieldset;
+  $fieldset->div[1] = $fieldset_clone->div->div[1];
+  unset($fieldset->div->div[1]);
+  $fieldset->table = $fieldset_clone->div->table;
+  unset($fieldset->div->table);
+  // Get HTML of modified fieldset.
+  $fieldset_dom_element = dom_import_simplexml($fieldset);
+  $fieldset_dom = new DOMDocument('1.0', 'utf-8');
+  $fieldset_dom_node = $fieldset_dom->importNode($fieldset_dom_element, TRUE);
+  $fieldset_dom->appendChild($fieldset_dom_node);
+  $fieldset_html = $fieldset_dom->saveHTML();
+  // @todo Perhaps it could be done transparently via replaceChild().
+  // Replace old fieldset with edited one.
+  $content = preg_replace('#<fieldset[\s\S]{0,50}id="edit-simpletestfunctionaltest"[\s\S]*SimpleTest functionality[\s\S]*</fieldset>#', $fieldset_html, $content);
   return $content;
 }
 
